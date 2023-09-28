@@ -1,19 +1,26 @@
-import logo from "./logo.svg";
-import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import MovieList from "./components/Movies/MovieList";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from "react-router-dom";
 import Layout from "./components/Layout/Layout";
+import MovieList from "./components/Movies/MovieList";
+import MovieDetails from "./components/Movies/MovieDetails";
+import AddMovie from "./components/Movies/AddMovie";
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<Layout />}>
+      <Route index element={<MovieList />} />
+      <Route exact path="details/:movieId" element={<MovieDetails />} />
+      <Route exact path="add-movie" element={<AddMovie />} />
+    </Route>
+  )
+);
 
 function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<MovieList />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

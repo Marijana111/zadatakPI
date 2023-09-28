@@ -4,12 +4,19 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   return (
     <>
       <AppBar position="static">
-        <Toolbar variant="dense">
+        <Toolbar
+          variant="dense"
+          onClick={() => {
+            navigate("/");
+          }}
+        >
           <IconButton
             edge="start"
             color="inherit"
@@ -18,7 +25,12 @@ const Navbar = () => {
           >
             <LocalMoviesIcon />
           </IconButton>
-          <Typography variant="h6" color="inherit" component="div">
+          <Typography
+            className="nav-link"
+            variant="h6"
+            color="inherit"
+            component="div"
+          >
             Movies
           </Typography>
         </Toolbar>

@@ -1,15 +1,15 @@
+import { Outlet } from "react-router-dom";
 import Navbar from "./Navbar";
-import Footer from "./Footer";
-import MovieList from "../Movies/MovieList";
 
-const Layout = () => {
+export default function RootLayout() {
   return (
-    <>
-      <Navbar />
-      <MovieList />
-      <Footer />
-    </>
+    <div className="root-layout">
+      <header>
+        <Navbar />
+      </header>
+      <main>
+        <Outlet />
+      </main>
+    </div>
   );
-};
-
-export default Layout;
+}

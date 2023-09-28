@@ -5,7 +5,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  margin-bottom: 50px;
+}
+
+body > #root > div {
+  height: 100vh;
 }
 
 code {
@@ -14,7 +17,7 @@ code {
 }
 
 .footer {
-  position: fixed;
+  position: absolute;
   width: 100%;
   padding: 10px;
   text-align: center;
@@ -22,4 +25,30 @@ code {
   left: 0px;
   right: 0px;
   margin-bottom: 0px;
+}
+
+.container {
+  margin: 10px;
+}
+
+.nav-link {
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.nav-link:hover {
+  background-color: rgb(125, 206, 233);
+}
+
+.poster {
+  margin-left: 20%;
+  padding-bottom: 20px;
+}
+
+.form-container {
+  margin-top: 10px !important;
+}
+
+.button-end {
+  margin-left: 5px !important;
 }
