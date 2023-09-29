@@ -155,9 +155,19 @@ function MovieDetails() {
                     title="poster"
                   />
                   <CardContent>
-                    <Typography align="center" variant="body2">
-                      {movieDetails.tagline}
-                    </Typography>
+                    {movieDetails.tagline !== "" ? (
+                      <Typography align="center" variant="body2">
+                        {movieDetails.tagline}
+                      </Typography>
+                    ) : (
+                      <Typography
+                        align="center"
+                        color="text.secondary"
+                        variant="body2"
+                      >
+                        - This movie has no tagline -
+                      </Typography>
+                    )}
                   </CardContent>
                 </Card>
               </div>

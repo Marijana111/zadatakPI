@@ -7,12 +7,14 @@ import AddIcon from "@mui/icons-material/Add";
 import { useNavigate } from "react-router-dom";
 import Loader from "../Common/Loader";
 import Modal from "../Common/Modal";
+import ToasAlert from "../Common/ToastAlert";
 
 function MovieList() {
   const [movieList, setMovieList] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [openModal, setOpenModal] = useState(false);
+  const [openToastMessage, setOpenToastMessage] = useState(false);
   const navigate = useNavigate();
 
   const columns = [
@@ -103,7 +105,7 @@ function MovieList() {
 
   const handleDelete = () => {
     setOpenModal(false);
-    //toasmessage
+    setOpenToastMessage(true);
   };
 
   return (
@@ -160,6 +162,13 @@ function MovieList() {
         handleClose={() => setOpenModal(false)}
         handleSubmit={handleDelete}
         textSubmit={"Delete"}
+      />
+
+      <ToasAlert
+        open={openToastMessage}
+        setOpen={setOpenToastMessage}
+        message={"Successfully deleted!"}
+        severity={"success"}
       />
     </div>
   );
