@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -11,13 +10,11 @@ import Container from "@mui/material/Container";
 import { useParams } from "react-router-dom";
 import { movieService } from "../Service/MovieService";
 import ClosedCaptionIcon from "@mui/icons-material/ClosedCaption";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { useNavigate } from "react-router-dom";
 import Loader from "../Common/Loader";
+import BackButton from "../Common/BackButton";
 
 function MovieDetails() {
   const movieId = useParams();
-  const navigate = useNavigate();
   const [movieDetails, setMovieDetails] = useState([]);
   const [movieGenres, setMovieGenres] = useState(null);
   const [spokenLanguages, setSpokenLanguages] = useState(null);
@@ -46,13 +43,7 @@ function MovieDetails() {
       ) : (
         <>
           {" "}
-          <Button
-            onClick={() => navigate("/")}
-            variant="outlined"
-            startIcon={<ArrowBackIcon />}
-          >
-            Back
-          </Button>
+          <BackButton />
           <CssBaseline />
           <main>
             <Box
