@@ -7,7 +7,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { useNavigate } from "react-router-dom";
 import Loader from "../Common/Loader";
 import Modal from "../Common/Modal";
-import ToasAlert from "../Common/ToastAlert";
+import ToastAlert from "../Common/ToastAlert";
 
 function MovieList() {
   const [movieList, setMovieList] = useState([]);
@@ -164,7 +164,7 @@ function MovieList() {
         textSubmit={"Delete"}
       />
 
-      <ToasAlert
+      <ToastAlert
         open={openToastMessage}
         setOpen={setOpenToastMessage}
         message={"Successfully deleted!"}

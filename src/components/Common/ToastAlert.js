@@ -8,7 +8,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-function ToasAlert({ open, setOpen, severity, message }) {
+function ToastAlert({ open, setOpen, severity, message }) {
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -28,4 +28,4 @@ function ToasAlert({ open, setOpen, severity, message }) {
   );
 }
 
-export default ToasAlert;
+export default ToastAlert;

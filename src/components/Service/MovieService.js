@@ -1,14 +1,15 @@
 import axios from "axios";
-import { URL } from "../Config/Url";
+import { movieURL, movieURLGlobal } from "../Config/Url";
 
 export const movieService = {
   getMovies,
   getMovieDetails,
+  getGenres,
 };
 
 async function getMovies() {
   try {
-    const response = await axios.get(`${URL}/popular`, {
+    const response = await axios.get(`${movieURL}/popular`, {
       params: { language: "en-US", page: "1" },
       headers: {
         accept: "application/json",
@@ -23,7 +24,7 @@ async function getMovies() {
 
 async function getMovieDetails(movieId) {
   try {
-    const response = await axios.get(`${URL}/${movieId}`, {
+    const response = await axios.get(`${movieURL}/${movieId}`, {
       params: { language: "en-US", page: "1" },
       headers: {
         accept: "application/json",
@@ -36,4 +37,17 @@ async function getMovieDetails(movieId) {
   }
 }
 
-// slike path https://image.tmdb.org/t/p/original/[poster_path]
+async function getGenres() {
+  try {
+    const response = await axios.get(`${movieURLGlobal}/genre/movie/list`, {
+      params: { language: "en-US", page: "1" },
+      headers: {
+        accept: "application/json",
+        Authorization: process.env.REACT_APP_PERSONAL_ACCESS_TOKEN,
+      },
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+}

@@ -1,12 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
-import { TextField, Button, Container, Grid } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Container,
+  Grid,
+  Autocomplete,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import BackButton from "../Common/BackButton";
+import { movieService } from "../Service/MovieService";
+import ToastAlert from "../Common/ToastAlert";
 
 const AddMovie = () => {
-  const [value, setValue] = useState(new Date());
   const navigate = useNavigate();
+  const [genresFromApi, setGenresFromApi] = useState([]);
+  const [openToastMessage, setOpenToastMessage] = useState(false);
+  let genres = {};
 
   const {
     handleSubmit,
@@ -17,8 +27,26 @@ const AddMovie = () => {
     reValidateMode: "onChange",
   });
 
+  useEffect(() => {
+    movieService
+      .getGenres()
+      .then((res) => {
+        setGenresFromApi(res.data.genres);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  genres = genresFromApi.map((row) => ({
+    value: row.id,
+    label: row.name,
+  }));
+
   const onSubmit = (data) => {
-    console.log(data);
+    setOpenToastMessage(true);
+
+    setTimeout(() => {
+      navigate("/");
+    }, 1500);
   };
 
   return (
@@ -125,6 +153,40 @@ const AddMovie = () => {
               />
             </Grid>
           </Grid>
+          <Grid className="form-container" container spacing={2}>
+            <Grid item xs={6}>
+              <Controller
+                name="genres"
+                rules={{
+                  required: "Genres is required",
+                }}
+                render={({ field }) => (
+                  <Autocomplete
+                    {...field}
+                    multiple="true"
+                    options={genres || []}
+                    // filterOptions={filterOptions}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label="Genres"
+                        variant="outlined"
+                        fullWidth
+                        error={!!errors.genres}
+                        helperText={errors.genres?.message}
+                      />
+                    )}
+                    // onChange={(event, value) => {
+                    //   console.log("field", value);
+                    //   field.onChange(value || null);
+                    // }}
+                    // key={field || "deafult"}
+                  />
+                )}
+                control={control}
+              />
+            </Grid>
+          </Grid>
 
           <Grid container justifyContent={"flex-end"} marginTop={3}>
             <Button type="submit" variant="contained" color="primary">
@@ -142,6 +204,13 @@ const AddMovie = () => {
           </Grid>
         </form>
       </Container>
+
+      <ToastAlert
+        open={openToastMessage}
+        setOpen={setOpenToastMessage}
+        message={"Successfully added movie!"}
+        severity={"success"}
+      />
     </>
   );
 };
