@@ -127,7 +127,7 @@ function MovieDetails() {
                   {productionCompanies &&
                     productionCompanies.map((g) => (
                       <Typography align="center" paragraph>
-                        {g.name} &copy;
+                        {g.name}
                       </Typography>
                     ))}
                 </Stack>

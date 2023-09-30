@@ -11,12 +11,26 @@ import { useNavigate } from "react-router-dom";
 import BackButton from "../Common/BackButton";
 import { movieService } from "../Service/MovieService";
 import ToastAlert from "../Common/ToastAlert";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { styled } from "@mui/material/styles";
 
 const AddMovie = () => {
   const navigate = useNavigate();
   const [genresFromApi, setGenresFromApi] = useState([]);
   const [openToastMessage, setOpenToastMessage] = useState(false);
   let genres = {};
+
+  const VisuallyHiddenInput = styled("input")({
+    clip: "rect(0 0 0 0)",
+    clipPath: "inset(50%)",
+    height: 1,
+    overflow: "hidden",
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    whiteSpace: "nowrap",
+    width: 1,
+  });
 
   const {
     handleSubmit,
@@ -165,7 +179,6 @@ const AddMovie = () => {
                     {...field}
                     multiple="true"
                     options={genres || []}
-                    // filterOptions={filterOptions}
                     renderInput={(params) => (
                       <TextField
                         {...params}
@@ -176,15 +189,20 @@ const AddMovie = () => {
                         helperText={errors.genres?.message}
                       />
                     )}
-                    // onChange={(event, value) => {
-                    //   console.log("field", value);
-                    //   field.onChange(value || null);
-                    // }}
-                    // key={field || "deafult"}
                   />
                 )}
                 control={control}
               />
+            </Grid>
+            <Grid item xs={6}>
+              <Button
+                component="label"
+                variant="contained"
+                startIcon={<CloudUploadIcon />}
+              >
+                Upload movie poster (image only)
+                <VisuallyHiddenInput type="file" accept="image/*" />
+              </Button>
             </Grid>
           </Grid>
 
