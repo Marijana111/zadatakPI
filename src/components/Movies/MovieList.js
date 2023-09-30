@@ -15,6 +15,8 @@ function MovieList() {
   const [isLoading, setIsLoading] = useState(true);
   const [openModal, setOpenModal] = useState(false);
   const [openToastMessage, setOpenToastMessage] = useState(false);
+  const [hideId, setHideId] = useState(0);
+  const [deleteName, setDeleteName] = useState("");
   const navigate = useNavigate();
 
   const columns = [
@@ -75,7 +77,11 @@ function MovieList() {
           <Button
             variant="outlined"
             color="error"
-            onClick={() => setOpenModal(true)}
+            onClick={() => {
+              setHideId(params.row.id);
+              setDeleteName(params.row.title);
+              setOpenModal(true);
+            }}
           >
             Delete
           </Button>
@@ -104,6 +110,8 @@ function MovieList() {
   );
 
   const handleDelete = () => {
+    const hideMovie = movieList.filter((m) => m.id !== hideId);
+    setMovieList(hideMovie);
     setOpenModal(false);
     setOpenToastMessage(true);
   };
@@ -158,7 +166,7 @@ function MovieList() {
       <Modal
         open={openModal}
         title={"Delete modal"}
-        text={"Are you sure you want to delete movie?"}
+        text={`Are you sure you want to delete movie ${deleteName}?`}
         handleClose={() => setOpenModal(false)}
         handleSubmit={handleDelete}
         textSubmit={"Delete"}

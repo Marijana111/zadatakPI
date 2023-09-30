@@ -86,7 +86,11 @@ function MovieDetails() {
                   justifyContent="center"
                 >
                   <Typography align="center" paragraph>
-                    <b>Budget:</b> {movieDetails.budget} $
+                    <b>Budget:</b>{" "}
+                    {movieDetails.budget
+                      .toFixed(2)
+                      .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}{" "}
+                    $
                   </Typography>
                   <Typography align="center" paragraph>
                     <b>Status:</b> {movieDetails.status}
